@@ -1,57 +1,37 @@
 import { useState } from "react";
 import "../style/Navbar.css";
+import Logo from "../Asset/logo.png";
 
-const MobileMenu = () => {
-  return (
-    <div className={"mobile-menu"}>
-      <a href="#Home">Home</a>
-      <a href="#Membership">Membership</a>
-      <a href="#PersonalTraining">Personal Training</a>
-      <a href="#Classes">Classes</a>
-      <a href="#contact">Contact</a>
-      <a href="#about">About</a>
-      <a href="#privacy">Privacy Policy</a>
-    </div>
-  );
-};
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
-  const [isShown, setIsShown] = useState(false);
-  const toggleMobileMenu = () => {
-    setIsShown(!isShown);
-  };
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <>
-      <div className="topnav">
-        {/* Your Logo/Brand here */}
-        <div className="logo">
-          A<span>WORKOUT</span>
-        </div>
-
-        <div className="menu">
-          <a href="#Home" className="active-link">Home</a>
-          <a href="#Membership">Membership</a>
-          <a href="#PersonalTraining">Personal Training</a>
-          <a href="#Classes">Classes</a>
-          <a href="#contact">Contact</a>
-          <a href="#about">About</a>
-        </div>
-
-        {/* This button only shows up on small screens. It is used to open the mobile menu */}
-        <button className="show-mobile-menu-button" onClick={toggleMobileMenu}>
-          &#8801;
-        </button>
+    <nav>
+      <Link to="/" className="title">
+        <img src={Logo} alt="logo" className="img-logo" style={{ width: "100px" }} />
+      </Link>
+      <div className="menu" onClick={() => setMenuOpen(!menuOpen)}>
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
-
-      {/* The mobile menu and the close button */}
-      {isShown && <MobileMenu />}
-      {isShown && (
-        <button className="close-mobile-menu-button" onClick={toggleMobileMenu}>
-          &times;
-        </button>
-      )}
-    </>
+      <ul className={menuOpen ? "open" : ""}>
+        <li>
+          <NavLink to="/membership">Membership</NavLink>
+        </li>
+        <li>
+          <NavLink to="/personaltraining">Personal Training</NavLink>
+        </li>
+        <li>
+          <NavLink to="/classes">Classes</NavLink>
+        </li>
+        <li>
+          <NavLink to="/contact">Contact</NavLink>
+        </li>
+      </ul>
+    </nav>
   );
 };
 
